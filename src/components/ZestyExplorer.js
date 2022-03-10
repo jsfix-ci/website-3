@@ -1,0 +1,95 @@
+import React from 'react';
+import ReactJson from 'react-json-view-ssr';
+
+const convertToArray = (content) =>
+  Object.entries(content).map((e, i) => {
+    return { [`${e[0]}`]: e[1] };
+  });
+const flattenObj = (obj, parent, res = {}) => {
+  for (const key of Object?.keys(obj || {})) {
+    const propName = parent ? parent + '.' + key : key;
+    if (typeof obj[key] === 'object') {
+      flattenObj(obj[key], propName, res);
+    } else {
+      res[propName] = obj[key];
+    }
+  }
+  return res;
+};
+const ZestyExplorer = ({ content }) => {
+  const [search, setSearch] = React.useState();
+  //   const flaten1 = flattenObj(content);
+  //   const flaten2 = convertToArray(flaten1);
+  //   const flaten3 = flaten2.find((e) => {
+  //     if (Object.keys(e)[0].includes(search)) {
+  //       return e;
+  //     }
+  //   });
+  const content1 = Object.entries(content).map((e, i) => {
+    return { [`${e[0]}`]: e[1] };
+  });
+  const searchKey1 = content1.find((e, i, arr) => {
+    return e[search];
+  });
+  const data = { search: search ? searchKey1 : content };
+  //   const searchKey2 = content1.map((e, i, arr) => {
+  //     if (e[search]) {
+  //       return e[search];
+  //     }
+  //     if (
+  //       typeof Object.values(e)[0] === 'string' &&
+  //       Object.values(e)[0] === search
+  //     )
+  //       console.log(typeof Object.values(e)[0], 9999999999);
+  //     return 'darwin';
+  //   });
+
+  //   console.log(searchKey2, 3333333333333333333333333);
+  //   console.log(flaten3, 2222222222222222222);
+  //   const recursivelyFindKeyValue = (key, keyValue, list) => {
+  //     console.log('Searching list: ', list);
+
+  //     for (let i = 0; i < list.length; i++) {
+  //       const item = list[i];
+
+  //       for (const key of Object.keys(item)) {
+  //         //check if its array of more options, search it
+  //         if (Array.isArray(item[key])) {
+  //           console.log('child array found, searching', item);
+  //           const res = recursivelyFindKeyValue(key, keyValue, item[key]);
+  //           if (res.found === true) return res;
+  //         }
+  //         //Test the keyValue
+  //         else if (item[key] === keyValue) {
+  //           //found, return the list
+  //           console.log('found ', keyValue);
+  //           return { found: true, containingArray: list };
+  //         }
+  //       }
+  //     }
+
+  //     return { found: false, containingArray: [] };
+  //   };
+  //   const res = recursivelyFindKeyValue('type', 'images', content1);
+
+  return (
+    <>
+      <input
+        placeholder="search for Key..........."
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <ReactJson
+        src={data}
+        theme="monokai"
+        collapsed={false}
+        displayObjectSize
+        displayDataTypes={false}
+        enableClipboard={false}
+      />
+    </>
+  );
+};
+
+export default ZestyExplorer;
