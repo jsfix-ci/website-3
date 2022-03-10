@@ -16,22 +16,49 @@ const flattenObj = (obj, parent, res = {}) => {
   }
   return res;
 };
+function deepen(obj) {
+  const result = {};
+
+  // For each object path (property key) in the object
+  for (const objectPath in obj) {
+    // Split path into component parts
+    const parts = objectPath.split('.');
+
+    // Create sub-objects along path as needed
+    let target = result;
+    while (parts.length > 1) {
+      const part = parts.shift();
+      target = target[part] = target[part] || {};
+    }
+
+    // Set value at end of path
+    target[parts[0]] = obj[objectPath];
+  }
+
+  return result;
+}
 const ZestyExplorer = ({ content }) => {
   const [search, setSearch] = React.useState();
-  //   const flaten1 = flattenObj(content);
-  //   const flaten2 = convertToArray(flaten1);
-  //   const flaten3 = flaten2.find((e) => {
-  //     if (Object.keys(e)[0].includes(search)) {
-  //       return e;
-  //     }
+  const flaten1 = flattenObj(content);
+  const flaten2 = convertToArray(flaten1);
+  const flaten3 = flaten2.find((e) => {
+    const obj123 = Object.values(e);
+    console.log(obj123, 'qqqqqqqqqqq');
+    if (Object.keys(e)[0].includes(search)) {
+      return e;
+    }
+    return null;
+  });
+
+  //   const content1 = Object.entries(content).map((e, i) => {
+  //     return { [`${e[0]}`]: e[1] };
   //   });
-  const content1 = Object.entries(content).map((e, i) => {
-    return { [`${e[0]}`]: e[1] };
-  });
-  const searchKey1 = content1.find((e, i, arr) => {
-    return e[search];
-  });
-  const data = { search: search ? searchKey1 : content };
+  //   const searchKey1 = content1.find((e, i, arr) => {
+  //     return e[search];
+  //   });
+  console.log(deepen(flaten3), 'gggggg');
+  const deepen1 = deepen(flaten3);
+  const data = { search: search ? deepen1 : content };
   //   const searchKey2 = content1.map((e, i, arr) => {
   //     if (e[search]) {
   //       return e[search];
