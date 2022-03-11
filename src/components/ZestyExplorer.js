@@ -2,10 +2,12 @@ import React from 'react';
 import ReactJson from 'react-json-view-ssr';
 import Fuse from 'fuse.js';
 
+// convert the obj to array of objectsj
 const convertToArray = (content) =>
   Object.entries(content).map((e, i) => {
     return { [`${e[0]}`]: e[1] };
   });
+// convert obj to dot
 const flattenObj = (obj, parent, res = {}) => {
   for (const key of Object?.keys(obj || {})) {
     const propName = parent ? parent + '.' + key : key;
@@ -17,6 +19,7 @@ const flattenObj = (obj, parent, res = {}) => {
   }
   return res;
 };
+// convert dot to object
 function deepen(obj) {
   const result = {};
 
@@ -38,6 +41,7 @@ function deepen(obj) {
 
   return result;
 }
+
 const ZestyExplorer = ({ content }) => {
   const [search, setSearch] = React.useState();
   const flaten1 = flattenObj(content);
@@ -52,7 +56,6 @@ const ZestyExplorer = ({ content }) => {
     useExtendedSearch: true,
     includeMatches: true,
     ignoreLocation: true,
-    // threshold: 0.9,
     findAllMatches: true,
     threshold: 0,
     isCaseSensitive: false,
@@ -71,10 +74,9 @@ const ZestyExplorer = ({ content }) => {
         return { [`${e.key}`]: e.value };
       })
       .map((e) => deepen(e));
-  console.log(columns, 'COLUMNS');
-  console.log(result, '88888888888888888');
-  console.log(result2, '88888888888888888');
+
   const data = search ? result2 : { content };
+
   return (
     <>
       <div style={{ width: '80vw', margin: '0 auto' }}>
