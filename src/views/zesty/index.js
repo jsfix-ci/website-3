@@ -18,6 +18,12 @@ import Partner from './Partner';
 import Hero from './Hero';
 import PlatformSection from './PlatformSection';
 import NewNavigation from './NewNavigation';
+import DeveloperResourceCard from './DeveloperResourceCard';
+import ClientCard from './ClientCard';
+import AgencyPartnerCard from './AgencyPartnerCard';
+import AboutStat from './AboutStat';
+import JobListing from './JobListing';
+import EventHost from './EventHost';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -43,58 +49,63 @@ import CaseStudy from './CaseStudy';
 import AgencyPartner from './AgencyPartner';
 import Client from './Client';
 import Contact from './Contact';
-import New from './New';
 import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
+import Demo from './Demo';
 
 export {
-
-    Clipping,
-    Widget,
-    MarketingAnnoucement,
-    Review,
-    MainNavigation,
-    PersonaContent,
-    CustomerBrand,
-    CustomerHighlight,
-    LandingPageVariation,
-    TeamMember,
-    Feature,
-    IntegrationPartner,
-    IntegrationType,
-    PricingTier,
-    Partner,
-    Hero,
-    PlatformSection,
-    NewNavigation,
-    Category,
-    Article,
-    Tag,
-    Author,
-    UseCase,
-    LandingPage,
-    ProductExplainer,
-    Homepage,
-    SimplePage,
-    Mindshare,
-    MindshareAuthor,
-    About,
-    SalesPeople,
-    Product,
-    Integration,
-    Pricing,
-    Ourpartner,
-    HeroHompage,
-    WhyZesty,
-    ProductOverview,
-    TechnologyOverview,
-    CaseStudy,
-    AgencyPartner,
-    Client,
-    Contact,
-    New,
-    Career,
-    DeveloperResource,
-    EventsAndWebinar,
-}
+  Clipping,
+  Widget,
+  MarketingAnnoucement,
+  Review,
+  MainNavigation,
+  PersonaContent,
+  CustomerBrand,
+  CustomerHighlight,
+  LandingPageVariation,
+  TeamMember,
+  Feature,
+  IntegrationPartner,
+  IntegrationType,
+  PricingTier,
+  Partner,
+  Hero,
+  PlatformSection,
+  NewNavigation,
+  DeveloperResourceCard,
+  ClientCard,
+  AgencyPartnerCard,
+  AboutStat,
+  JobListing,
+  EventHost,
+  Category,
+  Article,
+  Tag,
+  Author,
+  UseCase,
+  LandingPage,
+  ProductExplainer,
+  Homepage,
+  SimplePage,
+  Mindshare,
+  MindshareAuthor,
+  About,
+  SalesPeople,
+  Product,
+  Integration,
+  Pricing,
+  Ourpartner,
+  HeroHompage,
+  WhyZesty,
+  ProductOverview,
+  TechnologyOverview,
+  CaseStudy,
+  AgencyPartner,
+  Client,
+  Contact,
+  Demo,
+  Career,
+  DeveloperResource,
+  EventsAndWebinar,
+};
