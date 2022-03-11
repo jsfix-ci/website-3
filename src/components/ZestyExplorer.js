@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactJson from 'react-json-view-ssr';
+import ReactDOM from 'react-dom';
 import Fuse from 'fuse.js';
+import { Button, TextField } from '@mui/material';
 
 // convert the obj to array of objectsj
 const convertToArray = (content) =>
@@ -78,28 +80,63 @@ const ZestyExplorer = ({ content }) => {
   const data = search ? result2 : { content };
 
   return (
-    <>
+    <div>
       <div style={{ width: '80vw', margin: '0 auto' }}>
-        <input
-          style={{ margin: '0 auto', width: '100%', height: '5rem' }}
-          placeholder="search"
-          type="text"
+        <TextField
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          id="outlined-basic"
+          label="Search"
+          variant="outlined"
+          autoFocus
         />
         {/* {JSON.stringify(result2)} */}
         <ReactJson
+          style={{ height: '80vh', overflowY: 'scroll' }}
           name={'data'}
           src={data}
-          theme="monokai"
+          theme="flat"
+          iconStyle="square"
+          indentWidth={4}
           collapsed={false}
           displayObjectSize
           displayDataTypes={false}
           enableClipboard={true}
         />
       </div>
-    </>
+    </div>
   );
 };
 
 export default ZestyExplorer;
+
+export const BasicModal = ({ content, onClose }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = (e) => {
+    e.stopPropagation();
+    onClose();
+  };
+
+  return ReactDOM.createPortal(
+    <div
+      style={{
+        height: '100vh',
+        overflow: 'hidden',
+        width: '100%',
+        background: 'white',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        zIndex: '99999999999999999',
+        padding: '2rem',
+      }}
+    >
+      <Button onClick={handleClose} variant="outlined" color="error">
+        X
+      </Button>
+      <ZestyExplorer content={content} />
+    </div>,
+    document.getElementById('modal-root'),
+  );
+};

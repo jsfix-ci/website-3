@@ -30,7 +30,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import FullScreenHeroWithImageSlider from '../../blocks/heroes/FullScreenHeroWithImageSlider';
 import WithSwiperAndBrandBackgroundColor from '../../blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
 import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration';
@@ -38,9 +38,11 @@ import WithOverlappedCards from '../../blocks/team/WithOverlappedCards';
 import ReviewsWithSimpleBoxes from '../../blocks/testimonials/ReviewsWithSimpleBoxes';
 import VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from '../../blocks/cta/CtaWithInputField';
-import ZestyExplorer from 'components/ZestyExplorer';
+import { BasicModal } from 'components/ZestyExplorer';
+import { Button } from '@mui/material';
 
 function Homepage({ content }) {
+  const [modal, setModal] = React.useState(false);
   let image_url = content?.zesty_benefits_image
     ? content.zesty_benefits_image.data[0].url
     : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
@@ -58,8 +60,19 @@ function Homepage({ content }) {
       <ReviewsWithSimpleBoxes />
       <VerticallyAlignedBlogCardsWithShapedImage />
       <CtaWithInputField />
-      <hr />
-      <ZestyExplorer content={content} />
+      <Button
+        onClick={() => {
+          setModal(!modal);
+        }}
+        variant="outlined"
+      >
+        View Data
+      </Button>
+
+      {modal && (
+        <BasicModal content={content} onClose={() => setModal(false)} />
+      )}
+      {/* <hr /> */}
       {/* <div
         style={{
           background: '#eee',
