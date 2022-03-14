@@ -46,13 +46,19 @@ function deepen(obj) {
 
 const ZestyExplorer = ({ content }) => {
   const [search, setSearch] = React.useState();
+  // convert obj to dot
   const flaten1 = flattenObj(content);
+
+  // convert to array of objects
   const flaten2 = convertToArray(flaten1);
+
+  // generate columns for search
   const columns = flaten2.map((e) => {
     const res = Object.keys(e);
     return res.toString().replace(/.[0-9]/g, '');
   });
 
+  // search options
   const options = {
     includeScore: true,
     useExtendedSearch: true,
@@ -65,10 +71,12 @@ const ZestyExplorer = ({ content }) => {
     keys: columns,
   };
 
+  // search func
   const fuse = new Fuse([content], options);
 
   const result = fuse.search(search || '');
 
+  // convert as key value pairs
   const result2 =
     result &&
     result[0]?.matches
@@ -77,6 +85,7 @@ const ZestyExplorer = ({ content }) => {
       })
       .map((e) => deepen(e));
 
+  // display the result of search
   const data = search ? result2 : { content };
 
   return (
@@ -111,8 +120,6 @@ const ZestyExplorer = ({ content }) => {
 export default ZestyExplorer;
 
 export const BasicModal = ({ content, onClose }) => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = (e) => {
     e.stopPropagation();
     onClose();
