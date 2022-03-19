@@ -49,13 +49,30 @@ const Main = ({
 
   let pageNavColorRegex = new RegExp(/mindshare|authors|blog/gi);
 
+  console.log('🚀 ~ file: Main.js ~ line 25 ~ router', router.asPath);
+
+  const routerColorInvert = {
+    '/mindshare/': '/mindshare/',
+    '/mindshare/developer-how-tos/': '/mindshare/developer-how-tos/',
+    'mindshare/authors/': 'mindshare/authors/',
+  };
+
+  console.log(" davey here ", routerColorInvert[router.asPath]);
+  console.log(" davey router object ", router);
+
+  // url?.match(pageNavColorRegex) !== null
+
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
           <TopNav
             colorInvert={
-              url?.match(pageNavColorRegex) !== null ? true : colorInvert
+              routerColorInvert[router.asPath]
+                ? colorInvert
+                : routerColorInvert[router.asPath] === '/mindshare/'
+                ? !colorInvert
+                : colorInvert
             }
           />
         </Container>
@@ -73,7 +90,9 @@ const Main = ({
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
             colorInvert={
-              url.match(pageNavColorRegex) !== null && !trigger
+              routerColorInvert[router.asPath]
+                ? false
+                : routerColorInvert[router.asPath] === '/mindshare/'
                 ? true
                 : colorInvert
             }
