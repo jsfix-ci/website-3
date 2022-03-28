@@ -190,7 +190,11 @@ const ZestyExplorerBrowser = ({ content, children }) => {
 
     const res = await fetch(url, putMethod).then((response) => response.json());
 
-    res.status === 200 && res.json().then((e) => console.log(e));
+    res.status === 200 &&
+      res.json().then((e) => {
+        console.log(e);
+        window.location.reload();
+      });
     res.status !== 200 && res.json().then((e) => console.log(e));
   };
 
