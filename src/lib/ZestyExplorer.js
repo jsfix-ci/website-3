@@ -44,25 +44,37 @@ function deepen(obj) {
 
 // finding the zuid in objects of data
 const transFromData = (data) => {
-  const test = data;
+  const originalData = data;
 
   // remove not necessary fields
-  delete test.meta;
-  delete test.zestyBaseURL;
-  delete test.zestyInstanceZUID;
-  delete test.zestyProductionMode;
+  delete originalData.meta;
+  delete originalData.zestyBaseURL;
+  delete originalData.zestyInstanceZUID;
+  delete originalData.zestyProductionMode;
 
   // find the objects and convert to array of objects
-  const test1 = Object.entries(data)
+  const convertedData = Object.entries(originalData)
     .filter((e) => typeof e[1] === 'object' && e[1] !== null)
     .map((e) => {
       return { [e[0]]: e[1].data[0].zuid || e[1].data[0].meta.zuid };
     });
 
   // merge the two big objects to form 1 object
-  const test3 = { ...test, ...Object.assign({}, ...test1) };
+  const finalObject = {
+    ...originalData,
+    ...Object.assign({}, ...convertedData),
+  };
 
-  return test3;
+  return finalObject;
+};
+
+const getToken = () => {
+  const token = ('; ' + document.cookie)
+    .split(`; APP_SID=`)
+    .pop()
+    .split(';')[0];
+
+  return token;
 };
 const ZestyExplorerBrowser = ({ content, children }) => {
   // const [modal, setModal] = React.useState(false);
@@ -159,18 +171,21 @@ const ZestyExplorerBrowser = ({ content, children }) => {
       updatedAt: content.meta.updatedAt,
     };
 
-    const body = {
+    const payload = {
       data,
       meta,
       web,
     };
 
+    const token = getToken() || 'd281f0e9adc7c4864dca4f27ac7e8146e6029747';
+
     const putMethod = {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        authorization: 'Bearer ' + token,
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(payload),
     };
 
     const res = await fetch(url, putMethod).then((response) => response.json());
