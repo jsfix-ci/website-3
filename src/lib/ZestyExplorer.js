@@ -42,8 +42,29 @@ function deepen(obj) {
   return result;
 }
 
-const ZestyExplorerBrowser = ({ content, children }) => {
+// finding the zuid in objects of data
+const transFromData = (data) => {
+  const test = data;
 
+  // remove not necessary fields
+  delete test.meta;
+  delete test.zestyBaseURL;
+  delete test.zestyInstanceZUID;
+  delete test.zestyProductionMode;
+
+  // find the objects and convert to array of objects
+  const test1 = Object.entries(data)
+    .filter((e) => typeof e[1] === 'object' && e[1] !== null)
+    .map((e) => {
+      return { [e[0]]: e[1].data[0].zuid || e[1].data[0].meta.zuid };
+    });
+
+  // merge the two big objects to form 1 object
+  const test3 = { ...test, ...Object.assign({}, ...test1) };
+
+  return test3;
+};
+const ZestyExplorerBrowser = ({ content, children }) => {
   // const [modal, setModal] = React.useState(false);
   const [search, setSearch] = React.useState();
   // convert obj to dot
@@ -95,8 +116,8 @@ const ZestyExplorerBrowser = ({ content, children }) => {
   let searchBarStyles = {
     padding: '5px',
     margin: '10px',
-    borderRadius: '28px'
-  }
+    borderRadius: '28px',
+  };
 
   let linkStyles = {
     padding: '5px',
@@ -105,9 +126,67 @@ const ZestyExplorerBrowser = ({ content, children }) => {
     color: '#497edf',
   };
 
+  const handleEdit = async (e) => {
+    const url = `https://${content.zestyInstanceZUID}.api.zesty.io/v1/content/models/${content.meta.model.zuid}/items/${content.meta.zuid}`;
+
+    const data = transFromData(e.updated_src.content);
+
+    const web = {
+      metaDescription: content.meta.web.seo_meta_description,
+      metaTitle: content.meta.web.seo_meta_title,
+      metaLinkText: content.meta.web.seo_link_text,
+      metaKeywords: content.meta.web.seo_meta_keywords,
+      parentZUID: content.meta.zuid || '0',
+      pathPart: content.meta.web.fragment,
+      path: content.meta.web.uri,
+      sitemapPriority: content.meta.web.sitemap_priority,
+      canonicalTagMode: content.meta.web.sitemap_priority,
+      canonicalQueryParamWhitelist:
+        content.meta.web.canonical_query_param_whitelist,
+      canonicalTagCustomValue: content.meta.web.canonical_tag_custom_value,
+      createdByUserZUID: content.meta.zuid,
+    };
+    const meta = {
+      ZUID: content.meta.zuid,
+      masterZUID: content.meta.zuid,
+      contentModelZUID: content.meta.model.zuid,
+      contentModelName: content.meta.model.name,
+      sort: content.meta.sort,
+      listed: content.meta.listed,
+      version: content.meta.version,
+      langID: content.meta.langID,
+      createdAt: content.meta.createdAt,
+      updatedAt: content.meta.updatedAt,
+    };
+
+    const body = {
+      data,
+      meta,
+      web,
+    };
+
+    const putMethod = {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(body),
+    };
+
+    const res = await fetch(url, putMethod).then((response) => response.json());
+
+    res.status === 200 && res.json().then((e) => console.log(e));
+    res.status !== 200 && res.json().then((e) => console.log(e));
+  };
 
   return (
-    <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333', borderRadius: '4px' }}>
+    <div
+      style={{
+        background: '#ddd',
+        boxShadow: '0,0,5px,#333',
+        borderRadius: '4px',
+      }}
+    >
       <div style={{ width: '80vw', margin: '0 auto' }}>
         <div
           style={{
@@ -129,7 +208,6 @@ const ZestyExplorerBrowser = ({ content, children }) => {
             onChange={(e) => setSearch(e.target.value)}
             autoFocus
             style={searchBarStyles}
-
           />
           <span>
             Browsing item <strong> {content.meta.web.seo_link_text} </strong>
@@ -172,6 +250,7 @@ const ZestyExplorerBrowser = ({ content, children }) => {
           displayObjectSize
           displayDataTypes={false}
           enableClipboard={true}
+          onEdit={(e) => handleEdit(e)}
         />
       </div>
     </div>
