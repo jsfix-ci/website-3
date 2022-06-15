@@ -82,6 +82,10 @@ import DxpEnterprise from './DxpEnterprise';
 import DxpBenefit from './DxpBenefit';
 import DxpFeature from './DxpFeature';
 import HeadlessCmsFeature from './HeadlessCmsFeature';
+import HeadlessCmsMultiLang from './HeadlessCmsMultiLang';
+import HeadlessDam from './HeadlessDam';
+import ComposableDxp from './ComposableDxp';
+import SupportPortal from './SupportPortal';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -169,6 +173,10 @@ export {
     DxpBenefit,
     DxpFeature,
     HeadlessCmsFeature,
+    HeadlessCmsMultiLang,
+    HeadlessDam,
+    ComposableDxp,
+    SupportPortal,
     Footer,
     Header
 }
