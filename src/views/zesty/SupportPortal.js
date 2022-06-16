@@ -24,9 +24,70 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React, {useState, useEffect }  from 'react';
+// needed for auth token cookie and instance zuid
+import { getCookie } from "cookies-next";
+// import for ZestyAPI fetchwrapper
+import { useZestyStore } from 'store';
+
 
 function SupportPortal({content}) {
+    // dummy data
+    const dummyObj = {
+        instanceZUID: '8-c0ada7edaf-lm0bh4',
+        userAppSID: 'ed8f637f6f3ff4ed7a7369ffbca4f4b101f24824',
+        userZUID: '5-a2a7e180eb-48041b'
+    };
+    // ZestyAPI config
+    const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
+    
+    // states
+    const [user, setUser] = useState({})
+    // cookies needed to trigger ZestyAPI
+    const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+    const userAppSID = getCookie('APP_SID');
+    // ZestyAPI instantiation
+    // const ZestyAPI = new Zesty.FetchWrapper(dummyObj.instanceZUID, dummyObj.userAppSID);
+
+    const getUser = async (userZUID) => {
+        try {
+            const userData = await ZestyAPI.getUser(userZUID);
+
+            console.log(userData);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    const verifyUser = async () => {
+        try {
+            // for production
+            // const verifyData = await ZestyAPI.verify(userAppSID);
+            // for dev
+            const verifyData = await ZestyAPI.verify(dummyObj.userAppSID);
+
+            console.log(verifyData);
+
+            if(verifyData.status === 'OK'){
+                console.log(verifyData.meta);
+                // setUser(verifyData.meta);
+                // getUser(user.userZuid);
+            };
+            
+        } catch (error) {
+            console.log(error);
+        };
+    }
+
+    // useeffect - no endless loops
+    useEffect(() => {
+        // verify user and get user zuid
+        verifyUser();
+    },[])
+
+
+
     return (
         <>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
