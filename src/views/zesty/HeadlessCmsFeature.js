@@ -5,35 +5,11 @@
  * Label: Headless CMS Features 
  * Name: headless_cms_features 
  * Model ZUID: 6-b0ad9acbea-721hmm
- * File Created On: Wed Jun 15 2022 19:35:52 GMT+0200 (Central European Summer Time)
+ * File Created On: Tue Jun 14 2022 20:20:46 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
-  * hero_title (text)
- * hero_description (wysiwyg_basic)
- * hero_graphic (images)
- * features_benefit_1 (textarea)
- * features_benefit_1_graphic (images)
- * features_benefit_2 (textarea)
- * features_benefit_2_graphic (images)
- * features_benefit_3 (textarea)
- * features_benefit_3_graphic (images)
- * benefit_section_1_title (wysiwyg_basic)
- * features_section_1 (one_to_many)
- * benefits_section_2_title (wysiwyg_basic)
- * features_section_2 (one_to_many)
- * benefits_section_3_title (wysiwyg_basic)
- * features_section_3 (one_to_many)
- * integrations (wysiwyg_basic)
- * what_they_can_do_header (text)
- * what_section_1 (wysiwyg_basic)
- * what_section_1_graphic (images)
- * what_section_2 (wysiwyg_basic)
- * what_section_2_graphic (images)
- * what_section_3 (wysiwyg_basic)
- * what_section_3_graphic (images)
- * bottom_cta (wysiwyg_basic)
-
+ 
  * 
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
