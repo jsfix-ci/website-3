@@ -85,7 +85,6 @@ import HeadlessCmsFeature from './HeadlessCmsFeature';
 import HeadlessCmsMultiLang from './HeadlessCmsMultiLang';
 import HeadlessDam from './HeadlessDam';
 import ComposableDxp from './ComposableDxp';
-import SupportPortal from './SupportPortal';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -176,7 +175,6 @@ export {
     HeadlessCmsMultiLang,
     HeadlessDam,
     ComposableDxp,
-    SupportPortal,
     Footer,
     Header
 }
