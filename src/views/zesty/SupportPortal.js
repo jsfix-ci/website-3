@@ -36,6 +36,7 @@ function SupportPortal({content}) {
     const dummyObj = {
         instanceZUID: '8-c0ada7edaf-lm0bh4',
         userAppSID: 'ed8f637f6f3ff4ed7a7369ffbca4f4b101f24824',
+        devAppSID: '679e4f9c114b3bb1b63c285619350fcd7bc681d4',
         userZUID: '5-a2a7e180eb-48041b'
     };
     // ZestyAPI config
@@ -62,10 +63,12 @@ function SupportPortal({content}) {
     
     const verifyUser = async () => {
         try {
+            console.log(userAppSID);
+            console.log(dummyObj.userAppSID);
             // for production
             // const verifyData = await ZestyAPI.verify(userAppSID);
             // for dev
-            const verifyData = await ZestyAPI.verify(dummyObj.userAppSID);
+            const verifyData = await ZestyAPI.verify(dummyObj.devAppSID);
 
             console.log(verifyData);
 
