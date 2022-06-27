@@ -11,7 +11,8 @@ function SupportIndex(content){
 export default SupportIndex;
 
 // server side props -- gets called every request
-export async function getServerSideProps(ctx){
-    // returns what for support?
-    return;
-}
+// commented out to allow rendering until server side props is defined
+// export async function getServerSideProps(ctx){
+//     // returns what for support?
+//     return;
+// }

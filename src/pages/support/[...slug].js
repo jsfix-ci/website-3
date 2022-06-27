@@ -25,9 +25,11 @@ export default function Support({ content, navigationCustom }) {
   // check if the content object will have meta information if it is passed
   // **if so, updated the metaObj with the correct content key value pair
   const metaObj = {
-    title: content.title || 'Zesty Support',
-    description: content.description || 'Support Portal for Zesty Clients',
-    ogImage: content?.image ? image.data[0].url : zestyImage,
+    title: content?.meta ? content.meta.title : 'Zesty Support',
+    description: content?.meta
+      ? content.meta.description
+      : 'Support Portal for Zesty Clients',
+    ogImage: content?.meta ? content.meta.data[0].url : zestyImage,
   };
 
   //   testing new cookies
@@ -36,10 +38,10 @@ export default function Support({ content, navigationCustom }) {
     firstName: getCookie('APP_USER_FIRST_NAME'),
     lastName: getCookie('APP_USER_LAST_NAME'),
     email: getCookie('APP_USER_EMAIL'),
-    appSid: getCookie('APP_SID')
-  }
+    appSid: getCookie('APP_SID'),
+  };
+  //   comes back undefined -- need to know how to pass log in creds in localhost???
   console.log(userinfo);
-
 
   // are we using main the same way docs is using Main or will we need to build out our own
   return (
