@@ -24,6 +24,8 @@ export default function Slug(props) {
     if (params.utm_term) setCookies('utm_term', params.utm_term);
     if (params.utm_source) setCookies('utm_source', params.utm_source);
     if (params.utm_medium) setCookies('utm_medium', params.utm_medium);
+    //google click id  https://support.google.com/searchads/answer/7342044?hl=en
+    if (params.gclid) setCookies('gclid', params.gclid);
 
     // persona
     if (params.persona) setCookies('persona', params.persona);
@@ -37,15 +39,18 @@ export default function Slug(props) {
   // }
 
   return (
-    <Main
-      model={props.meta.model_alternate_name}
-      nav={props.navigationTree}
-      customRouting={props.navigationCustom}
-      url={props.meta.web.uri}
-      bgcolor={bgcolor}
-    >
-      <ZestyView content={props} />
-    </Main>
+    <>
+      
+      <Main
+        model={props.meta.model_alternate_name}
+        nav={props.navigationTree}
+        customRouting={props.navigationCustom}
+        url={props.meta.web.uri}
+        bgcolor={bgcolor}
+      >
+        <ZestyView content={props} />
+      </Main>
+    </>
   );
 }
 
