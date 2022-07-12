@@ -6,7 +6,7 @@ import { Box, Container, Link, Typography, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import MuiMarkdown from 'mui-markdown';
 
-const Middle = ({ content, theme, isMobile, isTablet }) => {
+const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
   const FillerImage =
     content.middle_solution_1_graphic?.data[0]?.url ||
     FillerContent.dashboard_image;
@@ -117,11 +117,11 @@ const Middle = ({ content, theme, isMobile, isTablet }) => {
       <Box
         sx={{
           background: theme.palette.zesty.zestyBackgroundBlue,
-          height: isTablet ? 3000 : 2300,
+          height: isTablet ? 0 : 1600,
           display: isMobile ? 'none' : 'block',
           width: '2px',
           position: 'absolute',
-          left: isMobile ? '5%' : '50%',
+          left: isTablet ? '5%' : '50%',
           bottom: '0',
         }}
       />
@@ -142,7 +142,7 @@ const Middle = ({ content, theme, isMobile, isTablet }) => {
               textTransform: 'capitalize',
             }}
           >
-            {content.middle_solutions_header}
+            {content.middle_solutions_header || FillerContent.header}
           </Typography>
         </Box>
         {arr?.map((e, i) => {
@@ -154,6 +154,7 @@ const Middle = ({ content, theme, isMobile, isTablet }) => {
               img={e.img}
               reverse={e.reverse}
               theme={e.theme}
+              isTablet={isTablet}
             />
           );
         })}
@@ -164,11 +165,12 @@ const Middle = ({ content, theme, isMobile, isTablet }) => {
 
 const RevealComponent = ({
   text = '',
-  img = FillerContent.dashboard_image,
+  img = FillerContent.dashboard_image || FillerContent.logos[0].url,
   reverse = false,
   theme,
   index,
   isMobile,
+  isTablet,
 }) => {
   return (
     <Box
@@ -200,6 +202,7 @@ const RevealComponent = ({
                 left: isMobile ? '1.8%' : '50.1%',
                 bottom: isMobile ? '45%' : '0',
                 transform: 'translate(-50%,-50%)',
+                display: isMobile ? '' : isTablet ? 'none' : '',
               }}
             />
           )}

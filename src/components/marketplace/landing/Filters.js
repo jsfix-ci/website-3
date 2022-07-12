@@ -1,15 +1,7 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  TextField,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Card,
-} from '@mui/material';
+import { Box, TextField, Container, Typography, Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
@@ -247,10 +239,18 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                 '&:hover': {
                   border: `1px solid ${theme.palette.zesty.zestyBlue}`,
                 },
+                p: 1,
               }}
             >
               <Typography
-                sx={{ fontWeight: 'bold' }}
+                sx={{
+                  fontWeight: 'bold',
+                  color: item.isActive
+                    ? theme.palette.common.white
+                    : isDarkMode
+                    ? theme.palette.zesty.zestyOrange
+                    : '',
+                }}
                 variant="h6"
                 component="h2"
               >
@@ -290,93 +290,93 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
         />
 
         {/* <Button
-          onClick={() => handleSort()}
-          onMouseDown={onMouseLeave}
-          onMouseEnter={onHoverHandler}
-          sx={{
-            ml: { xs: 0, md: 2 },
-            mt: { xs: 2, md: 0 },
-            width: { xs: 'auto', md: '20%' },
-            alignSelf: 'stretch',
-            color: theme.palette.zesty.zestyLightText2,
-            fontWeight: 'bold',
-          }}
-          variant="outlined"
-          color={isDarkMode ? 'secondary' : 'inherit'}
-        >
-          Sort:
-          <Typography
-            sx={{
-              color: theme.palette.zesty.zestyOrange,
-              ml: 0.3,
-              fontWeight: 'bold',
-            }}
-            component={'span'}
-          >
-            A-Z
-          </Typography>
-        </Button>
-        {open ? (
-          <Card
-            onMouseLeave={onMouseLeave}
-            sx={{
-              zIndex: 10,
-              position: 'absolute',
-              bottom: -180,
-              right: isTablet ? '' : 0,
-              width: 195,
-              background: theme.palette.common.white,
-            }}
-          >
-            <Button
-              sx={{
-                fontWeight: 'normal',
-                color: theme.palette.zesty.zestyZambezi,
-              }}
-              variant="text"
-              color="inherit"
-              fullWidth
-            >
-              Best Match
-            </Button>
-            <Box
-              component="hr"
-              sx={{
-                width: '80%',
-                borderTop: 0,
-              }}
-            />
-            <Button
-              sx={{
-                fontWeight: 'normal',
-                color: theme.palette.zesty.zestyZambezi,
-              }}
-              variant="text"
-              color="inherit"
-              fullWidth
-            >
-              Recently Added
-            </Button>
-            <Box
-              component="hr"
-              sx={{
-                width: '80%',
-                borderTop: 0,
-              }}
-            />
-            <Button
-              sx={{
-                fontWeight: 'normal',
-                color: theme.palette.zesty.zestyZambezi,
-              }}
-              variant="text"
-              color="inherit"
-              fullWidth
-            >
-              Most Installed
-            </Button>
-          </Card>
-        ) : null} */}
+           onClick={() => handleSort()}
+           onMouseDown={onMouseLeave}
+           onMouseEnter={onHoverHandler}
+           sx={{
+             ml: { xs: 0, md: 2 },
+             mt: { xs: 2, md: 0 },
+             width: { xs: 'auto', md: '20%' },
+             alignSelf: 'stretch',
+             color: theme.palette.zesty.zestyLightText2,
+             fontWeight: 'bold',
+           }}
+           variant="outlined"
+           color={isDarkMode ? 'secondary' : 'inherit'}
+         >
+           Sort:
+           <Typography
+             sx={{
+               color: theme.palette.zesty.zestyOrange,
+               ml: 0.3,
+               fontWeight: 'bold',
+             }}
+             component={'span'}
+           >
+             A-Z
+           </Typography>
+         </Button>
+         {open ? (
+           <Card
+             onMouseLeave={onMouseLeave}
+             sx={{
+               zIndex: 10,
+               position: 'absolute',
+               bottom: -180,
+               right: isTablet ? '' : 0,
+               width: 195,
+               background: theme.palette.common.white,
+             }}
+           >
+             <Button
+               sx={{
+                 fontWeight: 'normal',
+                 color: theme.palette.zesty.zestyZambezi,
+               }}
+               variant="text"
+               color="inherit"
+               fullWidth
+             >
+               Best Match
+             </Button>
+             <Box
+               component="hr"
+               sx={{
+                 width: '80%',
+                 borderTop: 0,
+               }}
+             />
+             <Button
+               sx={{
+                 fontWeight: 'normal',
+                 color: theme.palette.zesty.zestyZambezi,
+               }}
+               variant="text"
+               color="inherit"
+               fullWidth
+             >
+               Recently Added
+             </Button>
+             <Box
+               component="hr"
+               sx={{
+                 width: '80%',
+                 borderTop: 0,
+               }}
+             />
+             <Button
+               sx={{
+                 fontWeight: 'normal',
+                 color: theme.palette.zesty.zestyZambezi,
+               }}
+               variant="text"
+               color="inherit"
+               fullWidth
+             >
+               Most Installed
+             </Button>
+           </Card>
+         ) : null} */}
       </Box>
     </Container>
   );
