@@ -18,12 +18,10 @@ import { useRouter } from 'next/router';
 
 // import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
-import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
 import AppBar from 'components/console/AppBar';
-import { TryRounded } from '@mui/icons-material';
 
 const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();
@@ -33,6 +31,8 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   useEffect(() => {
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
+
+  console.log(props);
 
   return (
     <>
@@ -50,7 +50,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
             marketTags={props.featured_tags.data}
             marketEntityTypes={marketEntityTypes}
           />
-          <MarketplaceContainer />
+          <MarketplaceContainer {...props} />
         </MarketplaceProvider>
       </Main>
     </>

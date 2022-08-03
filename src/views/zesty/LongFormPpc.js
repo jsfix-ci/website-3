@@ -46,7 +46,7 @@ import { useRouter } from 'next/router';
 
 // MUI Imports
 import { useTheme } from '@mui/material/styles';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 
 // Globals Imports
 import ExploreZesty from './ExploreZestyPage';
@@ -60,13 +60,13 @@ import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustration
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
-import ContactUsForm from 'components/marketing/LongFormPpc/ContactUsForm';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'components/marketing/LongFormPpc/Features';
+import Features from 'blocks/features/Features/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
-import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
+import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
+import { Container, Grid, Divider } from '@mui/material';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -214,6 +214,52 @@ function LongFormPpc({ content }) {
       )}
 
       {/* Form */}
+      <Container>
+        <Grid sx={{ py: 10 }} container>
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'column',
+            }}
+            item
+            md={5}
+            xs={12}
+          >
+            <Typography
+              id="contact-us"
+              variant="h4"
+              style={{ marginTop: '30px' }}
+            >
+              Arrange a Demo
+            </Typography>
+            <br />
+            <Divider />
+
+            <Typography variant="body1">
+              <p>
+                Input your info and we will reach out immediately to arrange a
+                personalized demo with you and your team.
+              </p>
+              <ul>
+                <li>Tell us about your project</li>
+                <li>Learn industry best practices</li>
+                <li>Speak with a Solutions Engineer</li>
+                <li>Explore the ease of data transfer</li>
+                <li>Walk away with tailored Zesty platform</li>
+              </ul>
+            </Typography>
+          </Grid>
+          <Grid item md={7} xs={12}>
+            <ZohoFormEmbed
+              formURL="https://forms.zohopublic.com/zestyio/form/SalessignupformPPCCRM/formperma/G9oQMOrpqmdcg7rMbZ3tqucS8d9-92oA5HYh6fO96fM"
+              height="650px"
+            />
+          </Grid>
+        </Grid>
+      </Container>
+      {/*
+        // the original form was commented out to use the zoho embed form url above
       {router.asPath.includes('/ppc/content-management-system/') ? (
         <PpcShortForm theme={theme} content={content} />
       ) : (
@@ -223,6 +269,7 @@ function LongFormPpc({ content }) {
           formContent={formContent}
         />
       )}
+      */}
     </>
   );
 }

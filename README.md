@@ -35,7 +35,7 @@ This will create new files where needed, but will not overwrite existing files.
 
 ## AutoDeploy
 
-Any push or merge to the `main` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
+Any push or merge to the `stage` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
 stage: https://zesty-website-m3rbwjxm5q-uc.a.run.app/
 prod: https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
@@ -45,11 +45,11 @@ prod: https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 1. Create a branch
 2. Make change locally commit
 3. Test your changes with `npm run build`
-4. If build succeeds, create pull request against `main` (our stage)
+4. If build succeeds, create pull request against `stage` (our stage)
 
 ## Deployment to Production
 
-After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
+After a successfull deploy to `stage` create PR from `stage` to `production`, upon merge a production build will trigger.
 
 ## CTA Components and Forms
 
@@ -293,9 +293,36 @@ To update the image and link of the email signature:
 
 How it works is the image in the signature is pointed to a static image url reference which on zesty.io next site, which is https://www.zesty.io/assets/images/email-banner.png and the URL in the points to a custom parsley file that setups up a 301 redirect to the link edited in globals, this is the file https://8-aaeffee09b-7w6v22.manager.zesty.io/code/file/views/11-f49eb1abdb-h0nt9b https://www.zesty.io/email/annoucement-link.html
 
-# Using the ZestyAPI or fetchwrapper
+# State Management
 
-[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be access using the example below
+We use [Zustand](https://github.com/pmndrs/zustand) as state management. We wrap this in [/src/store/index.js](/src/store/index.js) in function called `useZestyStore`. This is accessed by importing to the component, here is the example of the import:
+
+```jsx
+import { useZestyStore } from 'store';
+```
+
+Currently, we store constants that allow us to engage in API and make decisions in the interface based upon user status. This includes user Auth state and user preferences.
+
+- `isUser`(boolean) checks if the visitor is the zesty user
+- `isAuthenticated` (boolean) check if the user has an active verified session
+- `ZestyAPI`(Object) is a global window object
+
+## Example of how we access the `isUser` in store
+
+```jsx
+// isUser use to determined if the visitor is zesty user
+
+import { useZestyStore } from 'store';
+
+// this is how isUser is set
+  setisUser: (data) => set((state) => ({ isUser: data })),
+// how isUser is access
+   const {  isUser } = useZestyStore((state) => state);
+```
+
+## Using the ZestyAPI, a global Object that instantiates fetchwrapper
+
+[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be accessed through global state management, here is the example :
 
 ```jsx
 import { useZestyStore } from 'store';
@@ -342,3 +369,11 @@ npm run test
 - Build time takes about 5 minutes
 - Auto deployment run through cloud run and cloud build integration with github
 - This occurs in the zesty-dev google cloud project
+
+# Accounts
+
+Accounts is instances, profile, teams, dashboard. To working on the accounts apps locally, follow these steps.
+
+1. You need to edit your ETC hosts files to use a domain like `test.zesty.io` to avoid CORS errors. To access your `localhost` see this thread for windows users https://github.com/zesty-io/manager-ui/discussions/1240
+2. Run `npm run dev` check your `test.zesty.io` domain, if that resolves to your next.js page, great, if not, googlefu
+3. Log into accounts.dev.zesty.io, refresh your localhost or test.zesty.io site

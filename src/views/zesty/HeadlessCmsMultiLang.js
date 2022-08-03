@@ -5,7 +5,7 @@
  * Label: Headless CMS Multi-lang 
  * Name: headless_cms_multi_lang 
  * Model ZUID: 6-e8dff7d0a0-np3tcx
- * File Created On: Wed Jun 15 2022 19:35:52 GMT+0200 (Central European Summer Time)
+ * File Created On: Wed Jul 27 2022 18:58:43 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
@@ -39,21 +39,30 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
 
-function HeadlessCmsMultiLang({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function HeadlessCmsMultiLang({ content }) {
+  return (
+    <>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      <h1
+        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
+      ></h1>
+      <div>{content.meta.web.seo_meta_description}</div>
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div>
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
-  
+
 export default HeadlessCmsMultiLang;

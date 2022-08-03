@@ -37,6 +37,17 @@ export default class MyDocument extends Document {
               style={{ display: 'none', visibility: 'hidden' }}
             ></iframe>
           </noscript>
+
+          {/* Zoominfo */}
+          <noscript>
+            <img
+              src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
+              width="1"
+              height="1"
+              style={{ display: 'none' }}
+              alt="websights"
+            />
+          </noscript>
           <Main />
           <NextScript />
         </body>

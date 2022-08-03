@@ -1,7 +1,7 @@
 /**
  * Component which dynamically selects a views/zesty component based on the URL
  */
-import React, { useState } from 'react';
+import React from 'react';
 import * as Zesty from '../views/zesty';
 import ErrorPage from '../pages/_error';
 
@@ -12,6 +12,19 @@ export function ZestyView(props) {
 
   // get data in initial load
   const Component = Zesty[props.content.meta.model_alternate_name];
+
+  // outside the component near imports
+  const initLiveEditor = async (data) => {
+    const { ZestyLiveEditor } = await import('@zesty-io/live-editor');
+    ZestyLiveEditor(data);
+  };
+
+  // inside the component's function just before the return statement
+  React.useEffect(() => {
+    if (props.content.zestyProductionMode !== true) {
+      initLiveEditor(props.content);
+    }
+  }, []);
 
   return (
     <>
