@@ -7,6 +7,7 @@ module.exports = {
   globals: {
     Zesty: true,
     dataLayer: true,
+    AOS: true,
   },
   extends: ['plugin:react/recommended', 'google', 'prettier'],
   parser: '@typescript-eslint/parser',

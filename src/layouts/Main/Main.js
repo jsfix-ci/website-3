@@ -97,6 +97,8 @@ const Main = ({
     }
   };
 
+  const showFooter =
+    isUser === false && !window.location.pathname.includes('/instances');
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -184,7 +186,7 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      {isUser == false && (
+      {showFooter && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
